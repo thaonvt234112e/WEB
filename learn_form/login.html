@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login - Thanh Thao</title>
+</head>
+<body>
+    <form name="frm_login" action="processlogin.html" method="get">
+        <fieldset>
+            <legend>Information</legend>
+            
+            <p>Full Name:</p>
+            <p><input type="text" name="fullname" required></p>
+
+            <p>Email:</p>
+            <p><input type="email" name="email" required></p>
+        </fieldset>
+
+        <br>
+
+        <table>
+            <tr>
+                <td><label for="username">User name:</label></td>
+                <td>
+                    <input type="text" name="username" id="username" required />
+                </td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td>
+                    <input type="password" name="password" id="password" required />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit" name="submit" id="submit">Login</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
