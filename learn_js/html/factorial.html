@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tính giai thừa</title>
+
+    <!-- Gọi file JavaScript ngoài -->
+    <script src="../js/mainjs.js"></script>
+
+    <!-- Viết thêm hàm gọi -->
+    <script type="text/javascript">
+        function call_factorial() {
+            // Lấy giá trị người dùng nhập
+            let n = document.my_form.input_n.value;
+
+            // Tính giai thừa
+            let result = calc_factorial(n);
+
+            // Hiển thị ra thẻ <td id="td_result">
+            document.getElementById("td_result").innerText = result;
+        }
+    </script>
+</head>
+
+<body>
+    <form name="my_form">
+        <table border="1" cellspacing="0" cellpadding="5">
+            <tr>
+                <td>n:</td>
+                <td>
+                    <input type="text" name="input_n" id="input_n" value="5" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <!-- Gọi hàm call_factorial() -->
+                    <button type="button" onclick="call_factorial()">Calc</button>
+
+                    <!-- Gọi hàm use_factorial() -->
+                    <button type="button" onclick="use_factorial(input_n.value, document.getElementById('td_result'))">Calc 2</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Result:</td>
+                <td id="td_result"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

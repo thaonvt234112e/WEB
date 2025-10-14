@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Thông tin sản phẩm</title>
+<script type="text/javascript">
+    // Định nghĩa đối tượng sản phẩm
+    var p_item = {
+        ID: "P01",
+        Name: "Coca Cola",
+        Quantity: 15,
+        Price: 30,
+        Image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Coca-Cola_bottle.JPG",
+        TotalValue: function() {
+            return this.Quantity * this.Price;
+        }
+    };
+</script>
+</head>
+<body>
+    <table border="1" cellpadding="5">
+        <tr>
+            <td>ID:</td>
+            <td id="td_id"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td id="td_name"></td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td id="td_quantity"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td id="td_price"></td>
+        </tr>
+        <tr>
+            <td>Total Value:</td>
+            <td id="td_value"></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td><img id="img_product" width="100"></td>
+        </tr>
+    </table>
+
+<script type="text/javascript">
+    // Gán dữ liệu vào bảng
+    td_id.innerText = p_item.ID;
+    td_name.innerText = p_item.Name;
+    td_quantity.innerText = p_item.Quantity;
+    td_price.innerText = p_item.Price;
+    td_value.innerText = p_item.TotalValue();
+
+    // Gán hình ảnh
+    img_product.src = p_item.Image;/ "..images"+p_item_Item3
+</script>
+</body>
+</html>

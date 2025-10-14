@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giải phương trình bậc nhất - Thanh Thao</title>
+    <script src="../js/mainjs.js"></script>
+</head>
+<body>
+    <form name="my_form">
+        <fieldset>
+            <legend>First Degree</legend>
+            <table>
+                <tr>
+                    <td>A Coeff.</td>
+                    <td><input type="text" name="a_coeff" id="a_coeff" placeholder="Nhập hệ số a"></td>
+                </tr>
+                <tr>
+                    <td>B Coeff.</td>
+                    <td><input type="text" name="b_coeff" id="b_coeff" placeholder="Nhập hệ số b"></td>
+                </tr>
+                <tr>
+                    <td>Result 1:</td>
+                    <td><input type="text" name="result1" id="result1" readonly></td>
+                </tr>
+                <tr>
+                    <td>Result 2:</td>
+                    <td id="result2">Your result here</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <!-- Gọi đúng giá trị số và phần tử -->
+                        <button type="button" onclick="call_first_degree(+a_coeff.value,+b_coeff.value,result1,result2)"
+>
+                            Solution
+                        </button>
+
+                        <button type="reset">Clear</button>
+
+                        <!-- Thay help() bằng alert -->
+                        <button type="button" onclick="alert('Nhập a và b rồi nhấn Solution để xem kết quả!')">
+                            Help
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+</html>

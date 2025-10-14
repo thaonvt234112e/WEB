@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Tạo thẻ P bằng JavaScript</title>
+    <script type="text/javascript">
+        function create_p() {
+            // Bước 1: Tạo thẻ <p>
+             p = document.createElement("p");
+
+            // Bước 2: Lấy ngày giờ hiện tại
+            date = new Date();
+            p.innerText = "Thời gian hiện tại: " + date.toLocaleDateString() + " " + date.toLocaleTimeString();
+
+            // Bước 3: Sinh ngẫu nhiên màu nền RGB
+           red = Math.floor(Math.random() * 256);
+             green = Math.floor(Math.random() * 256);
+             blue = Math.floor(Math.random() * 256);
+            p.setAttribute("style", "background-color: rgb(" + red + "," + green + "," + blue + "); padding:5px;");
+
+            // Bước 4: Đưa <p> vào trong <div id="my_div">
+         my_div = document.getElementById("my_div");
+            my_div.appendChild(p);
+        }
+    </script>
+</head>
+<body>
+    <form name="my_form">
+        <button type="button" onclick="create_p()">Create P</button>
+        <div id="my_div" style="width:100%; height:300px; border:1px solid black; overflow-y:scroll;"></div>
+    </form>
+    <script type="text/javascript">
+        setInterval(create_p,1000)
+    </script>
+</body>
+</html>
