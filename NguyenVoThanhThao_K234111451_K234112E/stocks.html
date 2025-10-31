@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Stock API — Q8</title>
+<style>
+  :root{
+    --bg: #fffafc;
+    --text: #1f2937;
+    --border: #ece8f6;
+    --th-bg: #f3f0ff;      /* pastel lavender */
+    --row-alt: #f7fbff;    /* pastel baby blue */
+    --row-hover: #fff6fb;  /* pastel pink hover */
+    --green: #6fc7b2;      /* pastel teal-green */
+    --red: #f39aa5;        /* pastel coral-red */
+
+    /* Column pastel tints (alpha handled below via box-shadow) */
+    --c1: 147,197,253;   /* blue-200 */
+    --c2: 196,181,253;   /* purple-200 */
+    --c3: 167,243,208;   /* emerald-200 */
+    --c4: 253,230,138;   /* amber-200 */
+    --c5: 252,165,165;   /* rose-300 */
+    --c6: 186,230,253;   /* sky-200 */
+  }
+
+  *{ box-sizing: border-box; }
+
+  body {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    padding: 8px;
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h3{ margin:4px 0 8px }
+
+  .container {
+    max-height: 380px;
+    overflow-y: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 20px rgba(120, 92, 255, 0.08);
+    background: #fff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+    position: relative; /* enable column tint overlay */
+  }
+
+  th {
+    background: var(--th-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    backdrop-filter: saturate(1.1);
+    box-shadow: 0 2px 8px rgba(120, 92, 255, 0.08);
+  }
+
+  /* Zebra rows + hover */
+  tbody tr:nth-child(even){ background: var(--row-alt); }
+  tbody tr:hover{ background: var(--row-hover); transition: background 140ms ease; }
+
+  /* Keep JS inline colors but soften them */
+  td[style*="color:green"]{ color: var(--green) !important; font-weight: 600; }
+  td[style*="color:red"]{ color: var(--red) !important; font-weight: 600; }
+
+  /* Pastel column tints (doesn't change structure/JS). 
+     Using a large inset box-shadow as a soft overlay so it blends with zebra rows. */
+  thead th:nth-child(1),
+  tbody td:nth-child(1){ box-shadow: inset 0 0 0 9999px rgba(var(--c1),0.10); }
+  thead th:nth-child(2),
+  tbody td:nth-child(2){ box-shadow: inset 0 0 0 9999px rgba(var(--c2),0.08); }
+  thead th:nth-child(3),
+  tbody td:nth-child(3){ box-shadow: inset 0 0 0 9999px rgba(var(--c3),0.10); }
+  thead th:nth-child(4),
+  tbody td:nth-child(4){ box-shadow: inset 0 0 0 9999px rgba(var(--c4),0.10); }
+  thead th:nth-child(5),
+  tbody td:nth-child(5){ box-shadow: inset 0 0 0 9999px rgba(var(--c5),0.09); }
+  thead th:nth-child(6),
+  tbody td:nth-child(6){ box-shadow: inset 0 0 0 9999px rgba(var(--c6),0.10); }
+
+  /* Stronger focus on hovered column for readability */
+  table td:hover::after,
+  table th:hover::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    box-shadow: inset 0 0 0 9999px rgba(255,255,255,0.20);
+    pointer-events:none;
+  }
+
+  /* Scrollbar (pastel) */
+  .container::-webkit-scrollbar{ height: 10px; width: 10px; }
+  .container::-webkit-scrollbar-track{ background: #faf7ff; border-radius: 10px; }
+  .container::-webkit-scrollbar-thumb{ background: #e5dcff; border-radius: 10px; border: 2px solid #faf7ff; }
+</style>
+</head>
+<body>
+  <h3 style="margin:4px 0 8px">Stock Market (Q8)</h3>
+  <div class="container">
+    <table id="stockTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Change</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const data = [
+      {"name":"VNINDEX","code":"VNINDEX","type":"index","price":1230.48,"change":-15.29,"changePercent":-1.2273},
+      {"name":"HNX","code":"HNX","type":"index","price":221.8675,"change":0.8862,"changePercent":0.4010},
+      {"name":"UPCOM","code":"UPCOM","type":"index","price":92.1477,"change":-0.9399,"changePercent":-1.0097},
+      {"name":"VN30","code":"VN30","type":"index","price":1310.8,"change":0,"changePercent":0},
+      {"name":"VN30F1M","code":"VN30F1M","type":"fu","price":1314.5,"change":0,"changePercent":0}
+    ];
+
+    const tbody = document.querySelector("#stockTable tbody");
+    data.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.code}</td>
+        <td>${item.type}</td>
+        <td>${item.price.toFixed(2)}</td>
+        <td style="color:${item.change>=0?'green':'red'}">${item.change.toFixed(2)}</td>
+        <td style="color:${item.changePercent>=0?'green':'red'}">${item.changePercent.toFixed(2)}%</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
